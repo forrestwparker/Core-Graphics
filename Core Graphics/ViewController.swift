@@ -113,6 +113,22 @@ class ViewController: UIViewController {
         imageView.image = img
     }
     
+    func drawImagesAndText() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let img = renderer.image { ctx in
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            let attrs = [NSAttributedStringKey.font: UIFont(name: "HelveticaNeue-Thin", size: 36)!, NSAttributedStringKey.paragraphStyle: paragraphStyle]
+            let string: NSString = "The best-laid schemes o'\nmice an' men gang aft agley"
+            string.draw(with: CGRect(x: 32, y: 32, width: 448, height: 448), options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
+            let mouse = UIImage(named: "mouse")
+            mouse?.draw(at: CGPoint(x: 300, y: 150))
+        }
+        
+        imageView.image = img
+    }
+    
     @IBAction func redrawTapped(_ sender: UIButton) {
         currentDrawType += 1
         
@@ -131,6 +147,8 @@ class ViewController: UIViewController {
             drawRotatedSquares()
         case 4:
             drawLines()
+        case 5:
+            drawImagesAndText()
         default:
             break
         }
